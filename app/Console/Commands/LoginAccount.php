@@ -55,12 +55,10 @@ class LoginAccount extends Command {
                     $updateVin3sAccount['status'] = false;
                 }
                 Vin3sAccount::where('id', $account->id)->update($updateVin3sAccount);
-
-                return Command::SUCCESS;
             } catch (\ErrorException $e) {
-                Log::log($e->getMessage());
-                return Command::FAILURE;
+                Log::error($e->getMessage());
             }
         }
+        return Command::SUCCESS;
     }
 }
