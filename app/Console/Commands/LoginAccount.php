@@ -27,8 +27,8 @@ class LoginAccount extends Command {
                     CURLOPT_CUSTOMREQUEST => 'POST',
                     CURLOPT_POSTFIELDS => '{
                         "versionInfo": {
-                            "moduleVersion": "' . config('app.vin3s.moduleVersion') .'",
-                            "apiVersion": "' . config('app.vin3s.apiVersion') .'"
+                            "moduleVersion": "' . config('app.vin3s.moduleVersion') . '",
+                            "apiVersion": "htSwdbkOSH_TIg2cxp9iiw"
                         },
                         "viewName": "MainFlow.SignIn",
                         "inputParameters": {

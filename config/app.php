@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -214,7 +214,6 @@ return [
 
     'vin3s' => [
         'moduleVersion' => 'R2PaZs9y1n6Y9cweeXmSng',
-        'apiVersion' => 'htSwdbkOSH_TIg2cxp9iiw',
         'CSRFToken' => 'T6C+9iB49TLra4jEsMeSckDMNhQ='
     ]
 ];
