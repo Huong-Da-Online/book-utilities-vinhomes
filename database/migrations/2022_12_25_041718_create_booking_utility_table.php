@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up() {
         Schema::create('booking_utility', function (Blueprint $table) {
-            $table->id();
-            $table->string('date');
-            $table->string('place_id');
-            $table->string('utility_id');
-            $table->string('utility_time_constraint_id');
+            $table->string('vin3s_utilities');
+            $table->string('vin3s_utilities_place');
+            $table->string('vin3s_utilities_time');
+            $table->primary([
+                'vin3s_utilities',
+                'vin3s_utilities_place',
+                'vin3s_utilities_time'
+            ], 'booking_utility');
         });
     }
 
