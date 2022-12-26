@@ -48,9 +48,11 @@ class LoginAccount extends Command {
                 $parseData = json_decode($response);
                 $updateVin3sAccount = [];
                 if ($parseData->data->Response->IsSuccess) {
+                    $profile = $this->profile($parseData->data->ResUserToken->Access_token);
                     $updateVin3sAccount['token'] = $parseData->data->ResUserToken->Access_token;
                     $updateVin3sAccount['login_at'] = Carbon::now();
-                    $updateVin3sAccount['apartment'] = $this->profile($parseData->data->ResUserToken->Access_token);
+                    $updateVin3sAccount['apartment'] = $profile['apartment'];
+                    $updateVin3sAccount['account_id'] = $profile['account_id'];
                     $updateVin3sAccount['other_data'] = json_encode($parseData->data);
                 } else {
                     $updateVin3sAccount['status'] = false;
@@ -77,7 +79,7 @@ class LoginAccount extends Command {
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => '{
                     "versionInfo": {
-                        "moduleVersion": "R2PaZs9y1n6Y9cweeXmSng",
+                        "moduleVersion": "' . config('app.vin3s.moduleVersion') . '",
                         "apiVersion": "3+Ot+XxIWNpkR_X_b1NDJg"
                     },
                     "viewName": "MainFlow.Home",
@@ -98,7 +100,10 @@ class LoginAccount extends Command {
             $response = curl_exec($curl);
             curl_close($curl);
             $parseData = json_decode($response);
-            return $parseData->data->ApartmentDefault->Apartment->Id;
+            return [
+                'apartment' => $parseData->data->ApartmentDefault->Apartment->Id,
+                'account_id' => $parseData->data->ApartmentDefault->CustomerVinhome->Id,
+            ];
         } catch (\ErrorException $e) {
             Log::error($e->getMessage());
         }

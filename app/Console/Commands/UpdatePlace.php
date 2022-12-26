@@ -28,7 +28,7 @@ class UpdatePlace extends Command {
                 foreach ($dataUtility->data->Response->ListPlaceIsAvailable->List as $_utility) {
                     Vin3sUtilitiesPlace::create([
                         'id' => $_utility->Place->Id,
-                        'vin3s_utilities_id' => $utility->id,
+                        'vin3s_utilities_id' => $utility->vin3s_utilities_id,
                         'name' => $_utility->Place->Name,
                         'place_utility_id' => $_utility->PlaceUtilityId,
                     ]);

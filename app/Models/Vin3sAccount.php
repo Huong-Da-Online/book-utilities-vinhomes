@@ -16,6 +16,7 @@ class Vin3sAccount extends Model {
         'login_at',
         'status',
         'apartment',
+        'account_id',
         'other_data'
     ];
     protected $casts = [

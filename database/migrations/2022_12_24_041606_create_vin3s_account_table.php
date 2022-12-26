@@ -21,6 +21,9 @@ return new class extends Migration {
             $table->string('apartment')
                 ->nullable()
                 ->default(null);
+            $table->string('account_id')
+                ->nullable()
+                ->default(null);
             $table->text('other_data')
                 ->nullable()
                 ->default(null);
