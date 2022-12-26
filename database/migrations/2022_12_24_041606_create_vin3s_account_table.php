@@ -18,6 +18,9 @@ return new class extends Migration {
                 ->default(null);
             $table->boolean('status')
                 ->default(true);
+            $table->string('apartment')
+                ->nullable()
+                ->default(null);
             $table->text('other_data')
                 ->nullable()
                 ->default(null);
