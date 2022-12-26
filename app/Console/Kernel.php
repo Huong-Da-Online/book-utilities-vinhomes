@@ -11,6 +11,9 @@ class Kernel extends ConsoleKernel {
         $schedule->command('command:update-utilities')->daily();
         $schedule->command('command:update-time')->daily();
         $schedule->command('command:update-place')->daily();
+        $schedule->command('command:booking')->dailyAt('07:59');
+        $schedule->command('command:booking')->dailyAt('08:00');
+        $schedule->command('command:booking')->dailyAt('08:01');
     }
 
     protected function commands() {
