@@ -61,7 +61,7 @@ class Booking extends Command {
                 ));
                 $response = curl_exec($curl);
                 curl_close($curl);
-                dd($response);
+                var_dump($response);
             } catch (\ErrorException $e) {
                 Log::error($e->getMessage());
             }
