@@ -26,6 +26,14 @@ class Booking extends Command {
             ->whereNotNull('token')
             ->first();
         $dateTomorrow = Carbon::now()->addDay()->format('Y-m-d');
+        for ($i = 0; $i < 5; $i++) {
+            $this->attackVin3s($timeBooking, $account, $dateTomorrow);
+            sleep(10);
+        }
+        return Command::SUCCESS;
+    }
+
+    private function attackVin3s($timeBooking, $account, $dateTomorrow) {
         foreach ($timeBooking as $booking) {
             try {
                 $data = '{"PlaceId":' . $booking->id . ',"UtilityId":' . $booking->vin3s_utilities . ',"UtilityTimeConstraintId":' . $booking->vin3s_utilities_time . ',"DateOfUse":"' . $dateTomorrow . '","TransId":' . $this->getTrans($account->token, $booking->place_utility_id, $account->account_id) . ',"NumberJoinIn":1,"CustomerVinHomeId":' . $account->account_id . ',"ApartmentId":' . $account->apartment . ',"PlaceUtilityId":' . $booking->place_utility_id . ',"ParentOrderId":0,"UtilityExtraTimeSpan":0,"CountExtraTimeSpan":0,"ChargePersonCount":0,"PersonPrice":0,"TimeSpanPrice":0,"CurrentPersonJoin":0,"NumberOfResidentTickets":1,"NumberOfGuestTickets":0,"OptionalInfo":"Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/108.0.0.0"}';
@@ -66,7 +74,6 @@ class Booking extends Command {
                 Log::error($e->getMessage());
             }
         }
-        return Command::SUCCESS;
     }
 
     private function encrypt($data) {
