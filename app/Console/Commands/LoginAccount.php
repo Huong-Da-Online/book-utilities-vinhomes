@@ -12,7 +12,7 @@ class LoginAccount extends Command {
     protected $description = 'Login account vin3s';
 
     public function handle() {
-        $vin3sAccounts = Vin3sAccount::where('status', true)->get();
+        $vin3sAccounts = Vin3sAccount::get();
         foreach ($vin3sAccounts as $account) {
             try {
                 $curl = curl_init();
@@ -48,15 +48,16 @@ class LoginAccount extends Command {
                 $parseData = json_decode($response);
                 $updateVin3sAccount = [];
                 if ($parseData->data->Response->IsSuccess) {
+                    $updateVin3sAccount['status'] = true;
                     $profile = $this->profile($parseData->data->ResUserToken->Access_token);
                     $updateVin3sAccount['token'] = $parseData->data->ResUserToken->Access_token;
                     $updateVin3sAccount['login_at'] = Carbon::now();
                     $updateVin3sAccount['apartment'] = $profile['apartment'];
                     $updateVin3sAccount['account_id'] = $profile['account_id'];
-                    $updateVin3sAccount['other_data'] = json_encode($parseData->data);
                 } else {
                     $updateVin3sAccount['status'] = false;
                 }
+                $updateVin3sAccount['other_data'] = json_encode($parseData->data);
                 Vin3sAccount::where('id', $account->id)->update($updateVin3sAccount);
             } catch (\ErrorException $e) {
                 Log::error($e->getMessage());

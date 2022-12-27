@@ -24,7 +24,7 @@ class UpdatePlace extends Command {
         foreach ($utilitiesTime as $utility) {
             $dataUtility = $this->getUtility($utility->id, $account->token);
             DB::transaction(function () use ($utility, $dataUtility) {
-                Vin3sUtilitiesPlace::where('vin3s_utilities_id', $utility->id)->delete();
+                Vin3sUtilitiesPlace::where('vin3s_utilities_id', $utility->vin3s_utilities_id)->delete();
                 foreach ($dataUtility->data->Response->ListPlaceIsAvailable->List as $_utility) {
                     Vin3sUtilitiesPlace::create([
                         'id' => $_utility->Place->Id,
