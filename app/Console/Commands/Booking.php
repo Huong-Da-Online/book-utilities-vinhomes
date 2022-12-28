@@ -26,9 +26,9 @@ class Booking extends Command {
             ->whereNotNull('token')
             ->first();
         $dateTomorrow = Carbon::now()->addDay()->format('Y-m-d');
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $this->attackVin3s($timeBooking, $account, $dateTomorrow);
-            sleep(10);
+            sleep(1);
         }
         return Command::SUCCESS;
     }
